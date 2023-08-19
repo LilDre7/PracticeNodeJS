@@ -1,6 +1,7 @@
 // Se requiere el paquete express y morgan para poder usarlo en el archivo principal
 const express = require("express");
 const morgan = require("morgan");
+// const cors = require("cors");
 
 // Se inicializa en una constante la variable app que es la que se exporta para usarla en el archivo principal
 const app = express();
@@ -9,6 +10,9 @@ app.use(express.json());
 
 // Morgan funciona para ver la peticiones de postman por consola
 app.use(morgan());
+
+// Cors funciona para que las peticiones desde el front-end puedan llegar a nuestra api
+// app.cors(cors());
 
 // ** Routes ** //
 const userRoutes = require("./routes/userRoute");

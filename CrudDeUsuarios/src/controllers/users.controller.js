@@ -1,15 +1,26 @@
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/usersModel");
+const AppError = require("../utils/appError");
 
 exports.createUser = catchAsync(async (req, res, next) => {
-  const { name, age, email, password } = req.body;
+  const { username, age, email, password } = req.body;
 
   const newUser = await User.create({
-    name,
-    age,
-    email,
-    password,
+    username: username,
+    age: age,
+    email: email,
+    password: password,
   });
+
+  const userFindInfo = await User.findOne({
+    where: {
+      email: email,
+    },
+  });
+
+  if (!userFindInfo) {
+    return next(new AppError("User not found", 404));
+  }
 
   return res.status(200).json({
     status: "success",

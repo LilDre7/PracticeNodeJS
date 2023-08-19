@@ -13,12 +13,10 @@ const User = DB.define("Users", {
   username: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
   age: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    unique: true,
   },
   email: {
     type: DataTypes.STRING,
@@ -28,7 +26,6 @@ const User = DB.define("Users", {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
 });
 

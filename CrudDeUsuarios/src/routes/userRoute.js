@@ -5,10 +5,16 @@ const router = express.Router();
 // ⚔️ Importacion para los contraladores ⚔️ //
 const userControl = require("../controllers/users.controller");
 
-router.post("/create", userControl.createUser);
-router.get("/allproduct", userControl.getAllProduct);
-router.get("/:id", userControl.getUser);
-router.put("/:id", userControl.updateUser);
-router.delete("/:id", userControl.deleteUser);
+// 🐧 Validacion de los middlewares 🐧 //
+const validUser = require("../middlewares/userValidation");
+
+// ** Rutas especificas para los metodos de las peticiones ⚔️ ** //
+router
+  .route("/create")
+  .post(validUser.validaUserId, userControl.createUser);
+router.route("/allproduct").get(userControl.getAllProduct);
+router.route("/:id").get(userControl.getUser);
+router.route("/:id").put(userControl.updateUser);
+router.route("/:id").delete(userControl.deleteUser);
 
 module.exports = router;

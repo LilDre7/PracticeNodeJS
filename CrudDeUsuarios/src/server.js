@@ -3,15 +3,15 @@ const { DB } = require("./db/config");
 const app = require("./app");
 const colors = require("colors");
 
-const PORT = process.env.PORT || 8080;
-
 DB.authenticate()
   .then(() => console.log("Database authenticate 🌱 "))
   .catch((err) => console.log(err));
 
-DB.sync({ force: false })
+DB.sync({ force: true })
   .then(() => console.log("Database synced 🥷🏾 "))
   .catch((err) => console.log(err));
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`App runnig on port ${PORT} ⚔️ `);
