@@ -13,7 +13,8 @@
   "license": "ISC",
   "devDependencies": {
     "colors": "^1.4.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "sequelize-cli": "^6.6.1"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
