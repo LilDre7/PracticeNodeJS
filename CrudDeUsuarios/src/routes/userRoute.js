@@ -9,10 +9,8 @@ const userControl = require("../controllers/users.controller");
 const validUser = require("../middlewares/userValidation");
 
 // ** Rutas especificas para los metodos de las peticiones ⚔️ ** //
-router
-  .route("/create")
-  .post(validUser.validaUserId, userControl.createUser);
-router.route("/allproduct").get(userControl.getAllProduct);
+router.route("/create").post(userControl.createUser);
+router.route("/alluser").get(userControl.getAllProduct);
 router.route("/:id").get(userControl.getUser);
 router.route("/:id").put(userControl.updateUser);
 router.route("/:id").delete(userControl.deleteUser);

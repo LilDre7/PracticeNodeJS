@@ -27,10 +27,12 @@ const globalErrorHandler = require("./controllers/errorController");
 app.use("/api/v1/users", userRoutes);
 
 app.use("*", (req, res, next) => {
-  new AppError(
-    `La ruta es incorrecta o no valida ${req.originalUrl} 🚑 `,
-    404,
-    "fail"
+  new next(
+    AppError(
+      `La ruta es incorrecta o no valida ${req.originalUrl} 🚑 `,
+      404,
+      "fail"
+    )
   );
 });
 

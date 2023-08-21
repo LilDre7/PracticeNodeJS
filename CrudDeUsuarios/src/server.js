@@ -7,7 +7,7 @@ DB.authenticate()
   .then(() => console.log("Database authenticate 🌱 "))
   .catch((err) => console.log(err));
 
-DB.sync({ force: true })
+DB.sync({ force: false })
   .then(() => console.log("Database synced 🥷🏾 "))
   .catch((err) => console.log(err));
 

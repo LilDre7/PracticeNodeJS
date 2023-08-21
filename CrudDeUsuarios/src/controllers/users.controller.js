@@ -30,7 +30,54 @@ exports.createUser = catchAsync(async (req, res, next) => {
     },
   });
 });
-exports.getAllProduct = catchAsync(async (req, res, next) => {});
-exports.getUser = catchAsync(async (req, res, next) => {});
-exports.updateUser = catchAsync(async (req, res, next) => {});
+exports.getAllProduct = catchAsync(async (req, res, next) => {
+  const allUsers = await User.findAll();
+
+  return res.status(200).json({
+    status: "success",
+    message: "All users found successfully",
+    data: {
+      allUsers: allUsers,
+      count: allUsers.length,
+    },
+  });
+});
+
+exports.getUser = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const findOneUser = await User.findOne({
+    id: id,
+  });
+
+  return res.status(200).json({
+    status: "success",
+    message: "User found successfully",
+    data: {
+      User: findOneUser,
+    },
+  });
+});
+
+exports.updateUser = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const { username, age, email, password } = req.body;
+
+  const updateDataUser = await User.update({
+    id: id,
+    username: username,
+    age: age,
+    email: email,
+    password: password,
+  });
+
+  return res.status(200).json({
+    status: "success",
+    message: "User updated successfully",
+    data: {
+      User: updateDataUser,
+    },
+  });
+});
+
 exports.deleteUser = catchAsync(async (req, res, next) => {});
