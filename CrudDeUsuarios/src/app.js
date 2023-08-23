@@ -26,9 +26,11 @@ const globalErrorHandler = require("./controllers/errorController");
 // !! RUTAS FOR THE APPLICATION !! //
 app.use("/api/v1/users", userRoutes);
 
+// ** Middleware de errores ** //
 app.use("*", (req, res, next) => {
-  new next(
-    AppError(
+  // !! Para todas las rutas que no sea correctas
+  return next(
+    new AppError(
       `La ruta es incorrecta o no valida ${req.originalUrl} 🚑 `,
       404,
       "fail"

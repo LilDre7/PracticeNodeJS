@@ -12,7 +12,9 @@ const validUser = require("../middlewares/userValidation");
 router.route("/create").post(userControl.createUser);
 router.route("/alluser").get(userControl.getAllProduct);
 router.route("/:id").get(userControl.getUser);
-router.route("/:id").put(userControl.updateUser);
+router
+  .route("/:id")
+  .put(validUser.validaUserId, userControl.updateUser);
 router.route("/:id").delete(userControl.deleteUser);
 
 module.exports = router;

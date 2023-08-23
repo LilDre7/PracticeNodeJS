@@ -63,8 +63,13 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const { username, age, email, password } = req.body;
 
-  const updateDataUser = await User.update({
-    id: id,
+  const findUserUpdate = await User.findOne({
+    where: {
+      id: id,
+    },
+  });
+
+  const updateDataUser = await findUserUpdate.update({
     username: username,
     age: age,
     email: email,
@@ -75,9 +80,27 @@ exports.updateUser = catchAsync(async (req, res, next) => {
     status: "success",
     message: "User updated successfully",
     data: {
-      User: updateDataUser,
+      updateDataUser,
     },
   });
 });
 
-exports.deleteUser = catchAsync(async (req, res, next) => {});
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const findUserDelete = await User.findOne({
+    where: {
+      id: id,
+    },
+  });
+
+  const deleteDataUser = await findUserDelete.destroy();
+
+  return res.status(200).json({
+    status: "success",
+    message: "User deleted successfully",
+    data: {
+      id: id,
+    },
+  });
+});
