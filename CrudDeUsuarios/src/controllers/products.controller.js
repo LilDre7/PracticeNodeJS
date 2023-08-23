@@ -1,6 +1,7 @@
 const catchAsync = require("../utils/catchAsync");
 const PRODUCT = require("../models/productsModel");
 const AppError = require("../utils/appError");
+const products = require("../models/productsModel");
 
 exports.createProduct = catchAsync(async (req, res, next) => {
   const { name, price, description, amount } = req.body;
@@ -40,44 +41,43 @@ exports.allProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.getProductForId = catchAsync(async (req, res, next) => {
-  const id = req.params;
+  const { id } = req.params;
 
-  const getProductForId = await PRODUCT.findOne({
+  const ProductForId = await PRODUCT.findOne({
     where: {
       id,
     },
   });
 
-  if (!getProductForId)
+  if (!ProductForId)
     next(new AppError("Product not Found", 404));
 
   res.status(200).json({
     status: "success",
     message: "Product",
     data: {
-      getProductForId,
+      ProductForId,
     },
   });
 });
 
 exports.updateProductForId = catchAsync(
   async (req, res, next) => {
-    const id = req.params;
+    const { id } = req.params;
     const { name, price, description, amount } = req.body;
 
-    const updateProductForId = await PRODUCT.update(
-      {
-        name,
-        price,
-        description,
-        amount,
+    const updateProduct = await PRODUCT.findOne({
+      where: {
+        id,
       },
-      {
-        where: {
-          id,
-        },
-      }
-    );
+    });
+
+    const updateProductForId = await updateProduct.update({
+      name: name,
+      price: price,
+      description: description,
+      amount: amount,
+    });
 
     if (!updateProductForId)
       next(new AppError("Product not Found", 404));
@@ -85,16 +85,13 @@ exports.updateProductForId = catchAsync(
     res.status(200).json({
       status: "success",
       message: "Product updated successfully",
-      data: {
-        updateProductForId,
-      },
     });
   }
 );
 
 exports.deleteProductForId = catchAsync(
   async (req, res, next) => {
-    const id = req.params;
+    const { id } = req.params;
 
     const deleteProductForId = await PRODUCT.destroy({
       where: {
