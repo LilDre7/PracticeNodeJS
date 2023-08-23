@@ -15,7 +15,11 @@ app.use(morgan());
 // app.cors(cors());
 
 // ** Routes ** //
+// Users
 const userRoutes = require("./routes/userRoute");
+
+// Products
+const productRoutes = require("./routes/productRoute");
 
 // ** Utilidades ** //
 const AppError = require("./utils/appError");
@@ -24,7 +28,12 @@ const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
 
 // !! RUTAS FOR THE APPLICATION !! //
+
+// For Users
 app.use("/api/v1/users", userRoutes);
+
+// For Products
+app.use("/api/v1/products", productRoutes);
 
 // ** Middleware de errores ** //
 app.use("*", (req, res, next) => {
