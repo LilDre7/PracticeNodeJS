@@ -61,9 +61,56 @@ exports.getProductForId = catchAsync(async (req, res, next) => {
 });
 
 exports.updateProductForId = catchAsync(
-  async (req, res, next) => {}
+  async (req, res, next) => {
+    const id = req.params;
+    const { name, price, description, amount } = req.body;
+
+    const updateProductForId = await PRODUCT.update(
+      {
+        name,
+        price,
+        description,
+        amount,
+      },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+
+    if (!updateProductForId)
+      next(new AppError("Product not Found", 404));
+
+    res.status(200).json({
+      status: "success",
+      message: "Product updated successfully",
+      data: {
+        updateProductForId,
+      },
+    });
+  }
 );
 
 exports.deleteProductForId = catchAsync(
-  async (req, res, next) => {}
+  async (req, res, next) => {
+    const id = req.params;
+
+    const deleteProductForId = await PRODUCT.destroy({
+      where: {
+        id,
+      },
+    });
+
+    if (!deleteProductForId)
+      next(new AppError("Product not Found", 404));
+
+    res.status(200).json({
+      status: "success",
+      message: "Product deleted successfully",
+      data: {
+        deleteProductForId,
+      },
+    });
+  }
 );
