@@ -18,3 +18,5 @@ router.route("/:id").get(productControl.getProductForId);
 router.route("/:id").put(productControl.updateProductForId);
 
 router.route("/:id").delete(productControl.deleteProductForId);
+
+module.exports = router;

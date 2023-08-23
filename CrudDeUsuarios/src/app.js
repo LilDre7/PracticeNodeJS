@@ -41,8 +41,7 @@ app.use("*", (req, res, next) => {
   return next(
     new AppError(
       `La ruta es incorrecta o no valida ${req.originalUrl} 🚑 `,
-      404,
-      "fail"
+      404
     )
   );
 });
